@@ -40,18 +40,31 @@ module BetaBuilder
               <key>items</key>
               <array>
                 <dict>
-                  <key>URL</key>
+                  <key>kind</key>
+                  <string>software-package</string>
+                  <key>url</key>
                   <string>#{@configuration.deployment_url}</string>
-                  <key>display-image</key>
+                </dict>
+                <dict>
+                  <key>kind</key>
+                  <string>display-image</string>
+                  <key>needs-shine</key>
+                  <true/>
+                  <key>url</key>
                   <string>#{@configuration.display_url}</string>
+                </dict>
+              </array>
+              <key>metadata</key>
+              <dict>
                   <key>bundle-identifier</key>
                   <string>#{plist_data['CFBundleIdentifier']}</string>
                   <key>bundle-version</key>
                   <string>#{plist_data['CFBundleVersion']}</string>
+                  <key>kind</key>
+                  <string>software</string>
                   <key>title</key>
                   <string>#{plist_data['CFBundleDisplayName']}</string>
-                </dict>
-              </array>
+              </dict>
             </dict>
             </plist>
           }
