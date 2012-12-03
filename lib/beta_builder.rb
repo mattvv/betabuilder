@@ -23,7 +23,10 @@ module BetaBuilder
         :xcode4_archive_mode => false,
         :skip_clean => false,
         :verbose => false,
-        :dry_run => false
+        :dry_run => false,
+        :enterprise => nil,
+        :company_name => nil,
+        :mobileprovision => nil,
       )
       @namespace = namespace
       yield @configuration if block_given?
@@ -49,9 +52,10 @@ module BetaBuilder
           args = "-target '#{target}' -configuration '#{configuration}' -sdk iphoneos"
           args << " -project #{project_file_path}" if project_file_path
         end
-
         args << " -arch \"#{arch}\"" unless arch.nil?
-
+        if enterprise
+          args << "--sign \"#{company_name}\"" 
+        end
         args
       end
 
