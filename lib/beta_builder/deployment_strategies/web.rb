@@ -53,7 +53,7 @@ module BetaBuilder
           <key>needs-shine</key>
           <true/>
           <key>url</key>
-          <string>#{@configuration.display_url}}/string>
+          <string>#{@configuration.display_url}/string>
         </dict>
       </array>
       <key>metadata</key>
