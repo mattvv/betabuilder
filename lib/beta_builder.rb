@@ -137,7 +137,7 @@ module BetaBuilder
           FileUtils.mkdir_p("pkg/Payload")
           FileUtils.mv(@configuration.built_app_path, "pkg/Payload/#{@configuration.app_file_name}")
           Dir.chdir("pkg") do
-            p system("/usr/bin/xcrun -sdk iphoneos PackageApplication -v #{@configuration.built_app_path} -o #{@configuration.ipa_name} --sign \"iPhone Distribution: #{@configuration.company_name}\"")
+            p system("/usr/bin/xcrun -sdk iphoneos PackageApplication -v \"#{@configuration.built_app_path}\" -o \"#{@configuration.ipa_name}\" --sign \"iPhone Distribution: #{@configuration.company_name}\"")
           end
           FileUtils.mkdir('pkg/dist')
           FileUtils.mv("pkg/#{@configuration.ipa_name}", "pkg/dist")
