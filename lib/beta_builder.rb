@@ -53,9 +53,6 @@ module BetaBuilder
           args << " -project #{project_file_path}" if project_file_path
         end
         args << " -arch \"#{arch}\"" unless arch.nil?
-        if enterprise
-          args << "--sign \"#{company_name}\"" 
-        end
         args
       end
 
@@ -140,7 +137,7 @@ module BetaBuilder
           FileUtils.mkdir_p("pkg/Payload")
           FileUtils.mv(@configuration.built_app_path, "pkg/Payload/#{@configuration.app_file_name}")
           Dir.chdir("pkg") do
-            system("/usr/bin/xcrun -sdk iphoneos PackageApplication -v #{@@configuration.built_app_path} -o #{@configuration.ipa_name} --sign \"iPhone Distribution: #{@configuration.company_name}\"")
+            system("/usr/bin/xcrun -sdk iphoneos PackageApplication -v #{@configuration.built_app_path} -o #{@configuration.ipa_name} --sign \"iPhone Distribution: #{@configuration.company_name}\"")
             # system("zip -r '#{@configuration.ipa_name}' Payload")
           end
           FileUtils.mkdir('pkg/dist')
