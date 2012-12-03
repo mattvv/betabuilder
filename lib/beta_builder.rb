@@ -71,7 +71,7 @@ module BetaBuilder
       
       def ipa_name
         if app_name
-          "#{app_name}.ipa"
+          "#{app_name.gsub(" ","")}.ipa"
         else
           "#{target}.ipa"
         end
