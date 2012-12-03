@@ -32,41 +32,40 @@ module BetaBuilder
         plist = CFPropertyList::List.new(:file => "pkg/Payload/#{@configuration.app_name}.app/Info.plist")
         plist_data = CFPropertyList.native_types(plist.value)
         File.open("pkg/dist/manifest.plist", "w") do |io|
-          io << %{
-            <?xml version="1.0" encoding="UTF-8"?>
-            <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
-            <plist version="1.0">
-            <dict>
-              <key>items</key>
-              <array>
-                <dict>
-                  <key>kind</key>
-                  <string>software-package</string>
-                  <key>url</key>
-                  <string>#{@configuration.deployment_url}</string>
-                </dict>
-                <dict>
-                  <key>kind</key>
-                  <string>display-image</string>
-                  <key>needs-shine</key>
-                  <true/>
-                  <key>url</key>
-                  <string>#{@configuration.display_url}</string>
-                </dict>
-              </array>
-              <key>metadata</key>
-              <dict>
-                  <key>bundle-identifier</key>
-                  <string>#{plist_data['CFBundleIdentifier']}</string>
-                  <key>bundle-version</key>
-                  <string>#{plist_data['CFBundleVersion']}</string>
-                  <key>kind</key>
-                  <string>software</string>
-                  <key>title</key>
-                  <string>#{plist_data['CFBundleDisplayName']}</string>
-              </dict>
-            </dict>
-            </plist>
+          io << %{<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+  <dict>
+    <key>items</key>
+    <array>
+      <dict>
+        <key>kind</key>
+        <string>software-package</string>
+        <key>url</key>
+        <string>#{@configuration.deployment_url}</string>
+      </dict>
+      <dict>
+        <key>kind</key>
+        <string>display-image</string>
+        <key>needs-shine</key>
+        <true/>
+        <key>url</key>
+        <string>#{@configuration.display_url}</string>
+      </dict>
+    </array>
+    <key>metadata</key>
+    <dict>
+        <key>bundle-identifier</key>
+        <string>#{plist_data['CFBundleIdentifier']}</string>
+        <key>bundle-version</key>
+        <string>#{plist_data['CFBundleVersion']}</string>
+        <key>kind</key>
+        <string>software</string>
+        <key>title</key>
+        <string>#{plist_data['CFBundleDisplayName']}</string>
+    </dict>
+  </dict>
+</plist>
           }
         end
         File.open("pkg/dist/index.html", "w") do |io|
