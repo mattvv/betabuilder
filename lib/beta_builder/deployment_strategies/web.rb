@@ -57,7 +57,7 @@ module BetaBuilder
           <key>needs-shine</key>
           <true/>
           <key>url</key>
-          <string>#{@configuration.display_url}/string>
+          <string>#{@configuration.display_url}</string>
         </dict>
         <dict>
           <key>kind</key>
@@ -65,7 +65,7 @@ module BetaBuilder
           <key>needs-shine</key>
           <true/>
           <key>url</key>
-          <string>#{@configuration.full_size_url}/string>
+          <string>#{@configuration.full_size_url}</string>
         </dict>
       </array>
       <key>metadata</key>
