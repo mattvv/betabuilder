@@ -6,12 +6,7 @@ module BetaBuilder
       def extended_configuration_for_strategy
         proc do
           def deployment_url
-            url = File.join(deploy_to, ipa_name)
-            if url.match(/\s/)
-              FileUtils.mv(url, url.gsub(" ",""))
-              url.gsub!(" ","")
-            end
-            url
+            File.join(deploy_to, ipa_name.gsub(" ",""))
           end
 
           def manifest_url
@@ -19,7 +14,12 @@ module BetaBuilder
           end
 
           def remote_installation_path
-            File.join(remote_directory)
+            path = File.join(remote_directory)
+            if path.match(/\s/)
+              FileUtils.mv(path, path.gsub(" ",""))
+              path.gsub!(" ","")
+            end
+            path
           end
         end
       end
