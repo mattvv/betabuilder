@@ -1,10 +1,17 @@
+require 'fileutils'
+
 module BetaBuilder
   module DeploymentStrategies
     class Web < Strategy
       def extended_configuration_for_strategy
         proc do
           def deployment_url
-            File.join(deploy_to, ipa_name)
+            url = File.join(deploy_to, ipa_name)
+            if url.match(/\s/)
+              FileUtils.mv(url, url.gsub(" ",""))
+              url.gsub!(" ","")
+            end
+            url
           end
 
           def manifest_url
