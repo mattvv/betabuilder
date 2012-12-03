@@ -17,6 +17,10 @@ module BetaBuilder
             File.join(deploy_to, display_image)
           end
 
+          def full_size_url
+            File.join(deploy_to, full_size_image)
+          end
+
           def remote_installation_path
             path = File.join(remote_directory)
             if path.match(/\s/)
@@ -54,6 +58,14 @@ module BetaBuilder
           <true/>
           <key>url</key>
           <string>#{@configuration.display_url}/string>
+        </dict>
+        <dict>
+          <key>kind</key>
+          <string>full-size-image</string>
+          <key>needs-shine</key>
+          <true/>
+          <key>url</key>
+          <string>#{@configuration.full_size_url}/string>
         </dict>
       </array>
       <key>metadata</key>
@@ -102,6 +114,7 @@ module BetaBuilder
       
       def deploy
         FileUtils.cp("pkg/Payload/#{@configuration.app_name}.app/#{@configuration.display_image}", "pkg/dist/#{@configuration.display_image}")
+        FileUtils.cp("pkg/Payload/#{@configuration.app_name}.app/#{@configuration.full_size_image}", "pkg/dist/#{@configuration.full_size_image}")
         system("scp pkg/dist/* #{@configuration.remote_host}:#{@configuration.remote_installation_path}")
       end
     end
