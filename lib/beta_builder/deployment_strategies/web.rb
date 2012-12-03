@@ -85,7 +85,7 @@ module BetaBuilder
       end
       
       def deploy
-        FileUtils.cp("Payload/#{@configuration.ipa_name}.app/#{@configuration.display_image}", "pkg/dist/#{@configuration.display_image}")
+        FileUtils.cp("Payload/#{@configuration.app_name}.app/#{@configuration.display_image}", "pkg/dist/#{@configuration.display_image}")
         system("scp pkg/dist/* #{@configuration.remote_host}:#{@configuration.remote_installation_path}")
       end
     end
