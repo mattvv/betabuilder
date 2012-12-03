@@ -13,6 +13,10 @@ module BetaBuilder
             File.join(deploy_to, "manifest.plist")
           end
 
+          def display_url
+            File.join(deploy_to, display_image)
+          end
+
           def remote_installation_path
             path = File.join(remote_directory)
             if path.match(/\s/)
@@ -36,26 +40,16 @@ module BetaBuilder
               <key>items</key>
               <array>
                 <dict>
-                  <key>assets</key>
-                  <array>
-                    <dict>
-                      <key>kind</key>
-                      <string>software-package</string>
-                      <key>url</key>
-                      <string>#{@configuration.deployment_url}</string>
-                    </dict>
-                  </array>
-                  <key>metadata</key>
-                  <dict>
-                    <key>bundle-identifier</key>
-                    <string>#{plist_data['CFBundleIdentifier']}</string>
-                    <key>bundle-version</key>
-                    <string>#{plist_data['CFBundleVersion']}</string>
-                    <key>kind</key>
-                    <string>software</string>
-                    <key>title</key>
-                    <string>#{plist_data['CFBundleDisplayName']}</string>
-                  </dict>
+                  <key>URL</key>
+                  <string>#{@configuration.deployment_url}</string>
+                  <key>display-image</key>
+                  <string>#{@configuration.display_url}</string>
+                  <key>bundle-identifier</key>
+                  <string>#{plist_data['CFBundleIdentifier']}</string>
+                  <key>bundle-version</key>
+                  <string>#{plist_data['CFBundleVersion']}</string>
+                  <key>title</key>
+                  <string>#{plist_data['CFBundleDisplayName']}</string>
                 </dict>
               </array>
             </dict>
@@ -91,6 +85,7 @@ module BetaBuilder
       end
       
       def deploy
+        FileUtils.cp("Payload/#{ipa_name}.app/#{@configuration.display_image}", "pkg/dist/#{@configuration.display_image}")
         system("scp pkg/dist/* #{@configuration.remote_host}:#{@configuration.remote_installation_path}")
       end
     end
