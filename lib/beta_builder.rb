@@ -78,7 +78,7 @@ module BetaBuilder
       
       def built_app_path
         if build_dir == :derived
-          "#{derived_build_dir_from_build_output}/#{configuration}-iphoneos/#{app_file_name}.app"
+          "#{derived_build_dir_from_build_output}/#{configuration}-iphoneos/#{app_file_name}"
         else
           "#{build_dir}/#{configuration}-iphoneos/#{app_file_name}"
         end
